@@ -18,6 +18,7 @@ using Windows.ApplicationModel.Core;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -68,6 +69,41 @@ namespace pixiv_sekai
             int lifetime = (int)responseJSON["response"]["expires_in"];
             textBlock.Text = "Logged in...";
             Debug.WriteLine("Obtained token (token = " + token + ", lifetime = " + lifetime + ")");
+            fetchRankings(token);
+        }
+
+        async private void fetchRankings(string token)
+        {
+            WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/all?mode=daily&image_sizes=px_480mw");
+            webRequest.Headers["Authorization"] = "Bearer " + token;
+
+            string responseBody;
+            try
+            {
+                WebResponse webResponse = await webRequest.GetResponseAsync();
+                responseBody = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+            }
+            catch (WebException exception)
+            {
+                WebResponse webResponse = exception.Response;
+                responseBody = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                textBlock.Text = "ERROR";
+                Debug.WriteLine("ERROR");
+                Debug.WriteLine(responseBody);
+                return;
+            }
+
+            textBlock.Text = "Fetched";
+            Debug.WriteLine(responseBody);
+
+            JObject responseJSON = JObject.Parse(responseBody);
+            JToken work = responseJSON["response"][0]["works"][0]["work"];
+            Debug.WriteLine(work.ToString());
+            Debug.WriteLine("Image URL = " + (string)work["image_urls"]["px_480mw"]);
+
+            BitmapImage bitmapImage = new BitmapImage();
+            bitmapImage.UriSource = new Uri((string)work["image_urls"]["px_480mw"]);
+            image.Source = bitmapImage;
         }
     }
 }
