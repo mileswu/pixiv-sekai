@@ -12,6 +12,6 @@
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="99,116,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
         <TextBox x:Name="usernameTextBox" HorizontalAlignment="Left" Margin="99,59,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" PlaceholderText="username"/>
         <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Margin="223,59,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" InputScope="Password" PlaceholderText="password"/>
-        <Image x:Name="image" Margin="99,292,10,10"/>
+        <GridView x:Name="gridView" Margin="10,287,10,10"/>
     </Grid>
 </Page>

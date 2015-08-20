@@ -74,7 +74,7 @@ namespace pixiv_sekai
 
         async private void fetchRankings(string token)
         {
-            WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/all?mode=daily&image_sizes=px_480mw");
+            WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/all?mode=daily&image_sizes=px_480mw&page=1&per_page=50");
             webRequest.Headers["Authorization"] = "Bearer " + token;
 
             string responseBody;
@@ -97,13 +97,20 @@ namespace pixiv_sekai
             Debug.WriteLine(responseBody);
 
             JObject responseJSON = JObject.Parse(responseBody);
-            JToken work = responseJSON["response"][0]["works"][0]["work"];
-            Debug.WriteLine(work.ToString());
-            Debug.WriteLine("Image URL = " + (string)work["image_urls"]["px_480mw"]);
+            Debug.WriteLine("Number of images returned = " + responseJSON["response"][0]["works"].Count());
+            foreach(JToken i in responseJSON["response"][0]["works"])
+            {
+                JToken work = i["work"];
+                Debug.WriteLine("Image URL = " + (string)work["image_urls"]["px_480mw"]);
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.UriSource = new Uri((string)work["image_urls"]["px_480mw"]);
+                Image im = new Image();
+                im.Source = bitmapImage;
+                im.Height = 150;
+                im.Width = 150;
 
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.UriSource = new Uri((string)work["image_urls"]["px_480mw"]);
-            image.Source = bitmapImage;
+                gridView.Items.Add(im);
+            }
         }
     }
 }
