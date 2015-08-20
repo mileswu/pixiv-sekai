@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="pixiv_sekai.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:pixiv_sekai"
+    RequestedTheme="Light">
+
+</Application>

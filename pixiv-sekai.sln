@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pixiv-sekai", "pixiv-sekai\pixiv-sekai.csproj", "{C24E6231-D36F-4F06-8702-9E58DCB6428B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Debug|ARM.ActiveCfg = Debug|ARM
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Debug|ARM.Build.0 = Debug|ARM
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Debug|ARM.Deploy.0 = Debug|ARM
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Debug|x64.ActiveCfg = Debug|x64
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Debug|x64.Build.0 = Debug|x64
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Debug|x64.Deploy.0 = Debug|x64
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Debug|x86.ActiveCfg = Debug|x86
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Debug|x86.Build.0 = Debug|x86
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Debug|x86.Deploy.0 = Debug|x86
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Release|ARM.ActiveCfg = Release|ARM
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Release|ARM.Build.0 = Release|ARM
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Release|ARM.Deploy.0 = Release|ARM
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Release|x64.ActiveCfg = Release|x64
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Release|x64.Build.0 = Release|x64
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Release|x64.Deploy.0 = Release|x64
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Release|x86.ActiveCfg = Release|x86
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Release|x86.Build.0 = Release|x86
+		{C24E6231-D36F-4F06-8702-9E58DCB6428B}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
