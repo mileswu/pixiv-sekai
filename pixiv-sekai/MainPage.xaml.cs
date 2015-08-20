@@ -56,7 +56,9 @@ namespace pixiv_sekai
             {
                 WebResponse webResponse = exception.Response;
                 responseBody = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
-                textBlock.Text = "ERROR\n\n" + responseBody;
+                textBlock.Text = "ERROR";
+                Debug.WriteLine("ERROR");
+                Debug.WriteLine(responseBody);
                 return;
             }
 
@@ -64,7 +66,8 @@ namespace pixiv_sekai
 
             string token = (string)responseJSON["response"]["access_token"];
             int lifetime = (int)responseJSON["response"]["expires_in"];
-            textBlock.Text = "OK \n\n" + token + " (" + lifetime + ")";
+            textBlock.Text = "Logged in...";
+            Debug.WriteLine("Obtained token (token = " + token + ", lifetime = " + lifetime + ")");
         }
     }
 }
