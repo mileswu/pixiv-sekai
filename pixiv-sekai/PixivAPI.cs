@@ -13,6 +13,8 @@ namespace pixiv_sekai
 {
     public class PixivAPI
     {
+        private string Token { get; set; }
+
         async public Task<bool> Login(string username, string password)
         {
             WebRequest webRequest = WebRequest.Create("https://oauth.secure.pixiv.net/auth/token");
@@ -43,9 +45,9 @@ namespace pixiv_sekai
 
             JObject responseJSON = JObject.Parse(responseBody);
 
-            string token = (string)responseJSON["response"]["access_token"];
+            Token = (string)responseJSON["response"]["access_token"];
             int lifetime = (int)responseJSON["response"]["expires_in"];
-            Debug.WriteLine("Obtained token (token = " + token + ", lifetime = " + lifetime + ")");
+            Debug.WriteLine("Obtained token (token = " + Token + ", lifetime = " + lifetime + ")");
             return true;
         }
     }
