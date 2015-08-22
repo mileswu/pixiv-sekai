@@ -13,7 +13,20 @@ namespace pixiv_sekai
 {
     public class PixivAPI
     {
-        private string Token { get; set; }
+        private class AccessToken
+        {
+            public string Token { get; }
+            private int Lifetime { get; }
+            private DateTime CreationTime { get; }
+
+            public AccessToken(string token, int lifetime)
+            {
+                Token = token;
+                Lifetime = lifetime;
+                CreationTime = DateTime.Now;
+            }
+        }
+        private AccessToken CurrentAccessToken { get; set; }
 
         private T RetrieveLocalSetting<T>(string key)
         {
@@ -91,11 +104,10 @@ namespace pixiv_sekai
             JObject responseJSON = JObject.Parse(responseBody);
 
             // Success so store username, password and token
-            Token = (string)responseJSON["response"]["access_token"];
+            CurrentAccessToken = new AccessToken((string)responseJSON["response"]["access_token"], (int)responseJSON["response"]["expires_in"]);
             Username = username;
             Password = password;
-            int lifetime = (int)responseJSON["response"]["expires_in"];
-            Debug.WriteLine("Obtained token (token = " + Token + ", lifetime = " + lifetime + ")");
+            Debug.WriteLine("Obtained token (token = " + (string)responseJSON["response"]["access_token"] + ", lifetime = " + responseJSON["response"]["expires_in"] + ")");
             return true;
         }
 
@@ -103,7 +115,7 @@ namespace pixiv_sekai
         {
             List<string> results = new List<string>();
             WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/all?mode=daily&image_sizes=px_480mw&page=1&per_page=50");
-            webRequest.Headers["Authorization"] = "Bearer " + Token;
+            webRequest.Headers["Authorization"] = "Bearer " + CurrentAccessToken.Token;
 
             string responseBody;
             try
