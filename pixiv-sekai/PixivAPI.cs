@@ -13,7 +13,65 @@ namespace pixiv_sekai
 {
     public class PixivAPI
     {
-        private string Token { get; set; }
+        private class PixivAccessToken
+        {
+            public string Token { get; }
+            public int Lifetime { get; }
+            public DateTime StartDate { get; }
+
+            public PixivAccessToken(string token, int lifetime)
+            {
+                Token = token;
+                Lifetime = lifetime;
+                StartDate = DateTime.Now;
+            }
+        }
+
+        private string _Token;
+        private string Token
+        {
+            get
+            {
+                Debug.WriteLine("geter");
+
+                if (_Token != null)
+                {
+                    return _Token;
+                }
+                else
+                {
+                    Debug.WriteLine("hi no token");
+                    if (ApplicationData.Current.LocalSettings.Values.ContainsKey("PixivAPI_authToken"))
+                    {
+                        Debug.WriteLine("hi exists");
+                        _Token = (string)ApplicationData.Current.LocalSettings.Values["PixivAPI_authToken"];
+                        return _Token;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            set
+            {
+                _Token = value;
+                ApplicationData.Current.LocalSettings.Values["PixivAPI_authToken"] = value;
+                Debug.WriteLine("hi wrote stuff");
+            }
+        }
+
+        public bool HasValidAuthToken()
+        {
+            if(Token == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
 
         async public Task<bool> Login(string username, string password)
         {
@@ -56,6 +114,7 @@ namespace pixiv_sekai
             List<string> results = new List<string>();
             WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/all?mode=daily&image_sizes=px_480mw&page=1&per_page=50");
             webRequest.Headers["Authorization"] = "Bearer " + Token;
+            Debug.WriteLine(Token);
 
             string responseBody;
             try
