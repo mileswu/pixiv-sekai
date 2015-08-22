@@ -25,6 +25,11 @@ namespace pixiv_sekai
                 Lifetime = lifetime;
                 CreationTime = DateTime.Now;
             }
+
+            public static implicit operator string (AccessToken a)
+            {
+                return "Token = " + a.Token + ", Lifetime = " + a.Lifetime + ", CreationTime = " + a.CreationTime;
+            }
         }
         private AccessToken CurrentAccessToken { get; set; }
 
@@ -107,7 +112,7 @@ namespace pixiv_sekai
             CurrentAccessToken = new AccessToken((string)responseJSON["response"]["access_token"], (int)responseJSON["response"]["expires_in"]);
             Username = username;
             Password = password;
-            Debug.WriteLine("Obtained token (token = " + (string)responseJSON["response"]["access_token"] + ", lifetime = " + responseJSON["response"]["expires_in"] + ")");
+            Debug.WriteLine("Obtained token (" + CurrentAccessToken + ")");
             return true;
         }
 
