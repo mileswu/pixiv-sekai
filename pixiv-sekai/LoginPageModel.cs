@@ -14,8 +14,8 @@ namespace pixiv_sekai
     class LoginPageModel	
     {
         // Properties
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string Username { get; set; } = (App.Current as App).Pixiv.Username;
+        public string Password { get; set; } = (App.Current as App).Pixiv.Password;
         public SimpleRelayCommand LoginCommand { get; }
 
 		// Constructor

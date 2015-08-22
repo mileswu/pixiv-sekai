@@ -15,6 +15,47 @@ namespace pixiv_sekai
     {
         private string Token { get; set; }
 
+        private T RetrieveLocalSetting<T>(string key)
+        {
+            if (ApplicationData.Current.LocalSettings.Values.ContainsKey(key))
+            {
+                return (T)ApplicationData.Current.LocalSettings.Values[key];
+            }
+            else
+            {
+                return default(T);
+            }
+        }
+
+        private string _Username;
+        public string Username
+        {
+            get
+            {
+                if (_Username == null) _Username = RetrieveLocalSetting<string>("PixivAPI_Username");
+                return _Username;
+            }
+            private set
+            {
+                _Username = value;
+                ApplicationData.Current.LocalSettings.Values["PixivAPI_Username"] = value;
+            }
+        }
+
+        private string _Password;
+        public string Password
+        {
+            get
+            {
+                if (_Password == null) _Password = RetrieveLocalSetting<string>("PixivAPI_Password");
+                return _Password;
+            }
+            private set
+            {
+                _Password = value;
+                ApplicationData.Current.LocalSettings.Values["PixivAPI_Password"] = value;
+            }
+        }
         async public Task<bool> Login(string username, string password)
         {
             WebRequest webRequest = WebRequest.Create("https://oauth.secure.pixiv.net/auth/token");
@@ -45,7 +86,10 @@ namespace pixiv_sekai
 
             JObject responseJSON = JObject.Parse(responseBody);
 
+            // Success so store username, password and token
             Token = (string)responseJSON["response"]["access_token"];
+            Username = username;
+            Password = password;
             int lifetime = (int)responseJSON["response"]["expires_in"];
             Debug.WriteLine("Obtained token (token = " + Token + ", lifetime = " + lifetime + ")");
             return true;
