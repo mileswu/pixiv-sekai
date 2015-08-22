@@ -26,6 +26,10 @@ namespace pixiv_sekai
                 return default(T);
             }
         }
+        private void StoreLocalSetting(string key, object value)
+        {
+            ApplicationData.Current.LocalSettings.Values[key] = value;
+        }
 
         private string _Username;
         public string Username
@@ -38,7 +42,7 @@ namespace pixiv_sekai
             private set
             {
                 _Username = value;
-                ApplicationData.Current.LocalSettings.Values["PixivAPI_Username"] = value;
+                StoreLocalSetting("PixivAPI_Username", value);
             }
         }
 
@@ -53,7 +57,7 @@ namespace pixiv_sekai
             private set
             {
                 _Password = value;
-                ApplicationData.Current.LocalSettings.Values["PixivAPI_Password"] = value;
+                StoreLocalSetting("PixivAPI_Password", value);
             }
         }
         async public Task<bool> Login(string username, string password)
