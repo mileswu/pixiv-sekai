@@ -50,5 +50,38 @@ namespace pixiv_sekai
             Debug.WriteLine("Obtained token (token = " + Token + ", lifetime = " + lifetime + ")");
             return true;
         }
+
+        async public Task<List<string> > Rankings()
+        {
+            List<string> results = new List<string>();
+            WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/all?mode=daily&image_sizes=px_480mw&page=1&per_page=50");
+            webRequest.Headers["Authorization"] = "Bearer " + Token;
+
+            string responseBody;
+            try
+            {
+                WebResponse webResponse = await webRequest.GetResponseAsync();
+                responseBody = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+            }
+            catch (WebException exception)
+            {
+                WebResponse webResponse = exception.Response;
+                responseBody = new StreamReader(webResponse.GetResponseStream()).ReadToEnd();
+                Debug.WriteLine("ERROR");
+                Debug.WriteLine(responseBody);
+                return results;
+            }
+
+            Debug.WriteLine(responseBody);
+
+            JObject responseJSON = JObject.Parse(responseBody);
+            Debug.WriteLine("Number of images returned = " + responseJSON["response"][0]["works"].Count());
+            foreach (JToken i in responseJSON["response"][0]["works"])
+            {
+                JToken work = i["work"];
+                results.Add((string)work["image_urls"]["px_480mw"]);
+            }
+            return results;
+        }
     }
 }

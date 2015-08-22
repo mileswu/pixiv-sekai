@@ -8,10 +8,6 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="button" Content="Login" HorizontalAlignment="Left" Margin="99,213,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="99,116,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <TextBox x:Name="usernameTextBox" HorizontalAlignment="Left" Margin="99,59,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" PlaceholderText="username"/>
-        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Margin="223,59,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" InputScope="Password" PlaceholderText="password"/>
-        <GridView x:Name="gridView" Margin="10,287,10,10"/>
+        <GridView x:Name="gridView" Margin="10"/>
     </Grid>
 </Page>
