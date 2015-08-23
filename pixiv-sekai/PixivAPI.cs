@@ -30,6 +30,12 @@ namespace pixiv_sekai
             {
                 return "Token = " + a.Token + ", Lifetime = " + a.Lifetime + ", CreationTime = " + a.CreationTime;
             }
+
+            public bool IsValid()
+            {
+                double diff = (DateTime.Now - CreationTime).TotalSeconds;
+                return diff < Lifetime;
+            }
         }
         private AccessToken CurrentAccessToken { get; set; }
 
@@ -116,8 +122,32 @@ namespace pixiv_sekai
             return true;
         }
 
+        async private Task ObtainAccessToken()
+        {
+            // If no access token or it's expired
+            if (CurrentAccessToken == null || CurrentAccessToken.IsValid() == false)
+            {
+                bool loginSuccess = false;
+
+                // Try doing Login if we have a Username and Password
+                if (Username != null && Password != null)
+                {
+                    loginSuccess = await Login(Username, Password);
+                }
+
+                // Throw exception if we were not able to login
+                if (loginSuccess == false)
+                {
+                    throw new Exception("No valid access token and login failed");
+                }
+            }
+        }
+
         async public Task<List<string> > Rankings()
         {
+            // Obtain access token and wait
+            await ObtainAccessToken();
+
             List<string> results = new List<string>();
             WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/all?mode=daily&image_sizes=px_480mw&page=1&per_page=50");
             webRequest.Headers["Authorization"] = "Bearer " + CurrentAccessToken.Token;
