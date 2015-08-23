@@ -32,7 +32,7 @@ namespace pixiv_sekai
             if (loginSuccessful)
             {
                 Frame rootFrame = Window.Current.Content as Frame;
-                rootFrame.Navigate(typeof(MainPage));
+                rootFrame.Navigate(typeof(RankingPage));
             }
         }
 
