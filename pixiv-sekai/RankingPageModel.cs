@@ -12,11 +12,11 @@ namespace pixiv_sekai
 {
     class RankingPageModel
     {
-        public ObservableCollection<Image> Works { get; }
+        public ObservableCollection<string> Works { get; }
 
         public RankingPageModel()
         {
-            Works = new ObservableCollection<Image>();
+            Works = new ObservableCollection<string>();
             LoadRankings();
         }
 
@@ -26,14 +26,7 @@ namespace pixiv_sekai
 
             foreach (string i in results)
             {
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.UriSource = new Uri(i);
-                Image im = new Image();
-                im.Source = bitmapImage;
-                im.Height = 150;
-                im.Width = 150;
-
-                Works.Add(im);
+                Works.Add(i);
             }
         }
     }

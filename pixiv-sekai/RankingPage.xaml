@@ -11,6 +11,14 @@
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <GridView x:Name="gridView" Margin="10" ItemsSource="{Binding Works}"/>
+        <GridView x:Name="gridView" Margin="10" ItemsSource="{Binding Works}">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="5">
+                        <Image Source="{Binding}" Stretch="UniformToFill" Width="150" Height="150"/>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
     </Grid>
 </Page>
