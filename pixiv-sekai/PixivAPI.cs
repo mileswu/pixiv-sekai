@@ -143,13 +143,13 @@ namespace pixiv_sekai
             }
         }
 
-        async public Task<List<string> > Rankings()
+        async public Task<List<string> > Rankings(int pageNumber)
         {
             // Obtain access token and wait
             await ObtainAccessToken();
 
             List<string> results = new List<string>();
-            WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/all?mode=daily&image_sizes=px_480mw&page=1&per_page=50");
+            WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/all?mode=daily&image_sizes=px_480mw&page=" + Convert.ToString(pageNumber) + "&per_page=50");
             webRequest.Headers["Authorization"] = "Bearer " + CurrentAccessToken.Token;
 
             string responseBody;
