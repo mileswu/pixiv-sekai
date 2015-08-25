@@ -6,15 +6,32 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.TopAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <AppBarButton Icon="Back" Grid.Column="0"/>
+                    <TextBlock Text="Pixiv Daily Rankings" Grid.Column="1" Margin="12,14"/>
+                </Grid>
+            </CommandBar.Content>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Sign out"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.TopAppBar>
     <Page.DataContext>
         <local:RankingPageModel/>
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <GridView x:Name="gridView" Margin="10" ItemsSource="{Binding Works}">
+        <GridView x:Name="gridView" Margin="10,320,10,10" ItemsSource="{Binding Works}">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="5">
+                    <Grid Margin="5" Background="{ThemeResource ListBoxBorderThemeBrush}">
                         <Image Source="{Binding}" Stretch="UniformToFill" Width="150" Height="150"/>
                     </Grid>
                 </DataTemplate>
