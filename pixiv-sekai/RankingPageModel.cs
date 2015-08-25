@@ -27,6 +27,15 @@ namespace pixiv_sekai
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
+#if DEBUG
+            if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
+                return new Func<Task<LoadMoreItemsResult>>(async () =>
+                {
+                    Add("Assets/StoreLogo.png");
+                    return new LoadMoreItemsResult { Count = 1 };
+                })().AsAsyncOperation();
+#endif
+
             return new Func<Task<LoadMoreItemsResult>>(async () =>
             {
                 List<string> results = await (App.Current as App).Pixiv.Rankings(PageNumber);
