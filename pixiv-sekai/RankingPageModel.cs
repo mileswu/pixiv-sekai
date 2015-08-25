@@ -15,7 +15,14 @@ namespace pixiv_sekai
 {
     class WorksCollection : ObservableCollection<string>, ISupportIncrementalLoading
     {
-        public bool HasMoreItems { get; } = true;
+        public bool HasMoreItems
+        {
+            get
+            {
+                if (PageNumber <= 10) return true;
+                else return false;
+            }
+        }
         private int PageNumber { get; set; } = 1;
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
