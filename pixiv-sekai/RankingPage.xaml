@@ -11,7 +11,29 @@
     </Page.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <GridView x:Name="gridView" Margin="10" ItemsSource="{Binding Works}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <RelativePanel x:Name="headerPanel" Background="{ThemeResource ButtonBackgroundThemeBrush}" >
+            <ContentPresenter x:Name="pageTitle" Content="Pixiv: Daily Ranking" FontSize="24" FontWeight="Light" IsHitTestVisible="false" TextWrapping="NoWrap" Margin="24,0,0,0" Height="48" VerticalContentAlignment="Center" />
+            <ComboBox x:Name="categoryComboBox" RelativePanel.LeftOf="modeComboBox" SelectedIndex="0" Width="150" Margin="0,8,12,0">
+                <TextBlock Text="Everything"/>
+            </ComboBox>
+            <ComboBox x:Name="modeComboBox" RelativePanel.LeftOf="searchBox" SelectedIndex="0" Width="150" Margin="0,8,12,0">
+                <TextBlock Text="Daily"/>
+                <TextBlock Text="Weekly" />
+            </ComboBox>
+            <AutoSuggestBox x:Name="searchBox" Margin="0,8,12,0" Width="270" PlaceholderText="Search" QueryIcon="Find" RelativePanel.LeftOf="commandBar" />
+            <CommandBar x:Name="commandBar" RelativePanel.AlignRightWithPanel="True" Margin="0,0,12,0" Background="{x:Null}">
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton Label="Sign out"/>
+                </CommandBar.SecondaryCommands>
+            </CommandBar>
+        </RelativePanel>
+
+        <GridView x:Name="gridView" Margin="10" ItemsSource="{Binding Works}" Grid.Row="1">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="5">
