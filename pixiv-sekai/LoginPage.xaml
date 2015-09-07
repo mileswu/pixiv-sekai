@@ -13,6 +13,6 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Button x:Name="button" Content="Login" HorizontalAlignment="Left" Margin="99,213,0,0" VerticalAlignment="Top" Command="{Binding LoginCommand}"/>
         <TextBox x:Name="usernameTextBox" HorizontalAlignment="Left" Margin="99,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" PlaceholderText="Username" Text="{Binding Username, Mode=TwoWay}"/>
-        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Left" Margin="223,59,0,0" TextWrapping="Wrap" Text="{Binding Password, Mode=TwoWay}" VerticalAlignment="Top" InputScope="Password" PlaceholderText="Password"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="223,59,0,0" VerticalAlignment="Top" PlaceholderText="Password" PasswordChanged="PasswordChanged"/>
     </Grid>
 </Page>
