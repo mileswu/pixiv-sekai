@@ -28,6 +28,7 @@ namespace pixiv_sekai
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
 #if DEBUG
+            // Placeholder for XAML Design Mode, since actual load task won't work
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
                 return new Func<Task<LoadMoreItemsResult>>(async () =>
                 {
