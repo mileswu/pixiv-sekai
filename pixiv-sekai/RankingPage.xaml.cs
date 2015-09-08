@@ -26,5 +26,17 @@ namespace pixiv_sekai
         {
             this.InitializeComponent();
         }
+
+        private void GridViewSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            int desiredSize = 150;
+            int availableWidth = (int) (e.NewSize.Width - gridView.Padding.Right - gridView.Padding.Left);
+            int numColumns = availableWidth / desiredSize;
+            int width = (int)((float)availableWidth) / numColumns;
+
+            var itemsWrapGrid = (ItemsWrapGrid)gridView.ItemsPanelRoot;
+            itemsWrapGrid.ItemWidth = width;
+            itemsWrapGrid.ItemHeight = width;
+        }
     }
 }

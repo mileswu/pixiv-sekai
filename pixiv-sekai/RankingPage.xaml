@@ -33,11 +33,17 @@
             </CommandBar>
         </RelativePanel>
 
-        <GridView x:Name="gridView" Margin="10" ItemsSource="{Binding Works}" Grid.Row="1">
+        <GridView x:Name="gridView" Margin="0,15,0,0" ItemsSource="{Binding Works}" Grid.Row="1" SizeChanged="GridViewSizeChanged" Padding="15,0,15,0">
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" ItemWidth="150" ItemHeight="150"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="5">
-                        <Image Source="{Binding}" Stretch="UniformToFill" Width="150" Height="150"/>
+                    <Grid Padding="5" Width="{Binding ItemsPanelRoot.ItemWidth, ElementName=gridView}" Height="{Binding ItemsPanelRoot.ItemHeight, ElementName=gridView}">
+                        <Rectangle Fill="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}" />
+                        <Image Source="{Binding}" Stretch="UniformToFill"/>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
