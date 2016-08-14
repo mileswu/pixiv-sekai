@@ -29,14 +29,14 @@ namespace pixiv_sekai
         {
 #if DEBUG
             // Placeholder for XAML Design Mode, since actual load task won't work
-            #pragma warning disable 1998
+#pragma warning disable 1998
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
                 return new Func<Task<LoadMoreItemsResult>>(async () =>
                 {
                     Add("Assets/StoreLogo.png");
                     return new LoadMoreItemsResult { Count = 1 };
                 })().AsAsyncOperation();
-            #pragma warning restore 1998
+#pragma warning restore 1998
 #endif
 
             return new Func<Task<LoadMoreItemsResult>>(async () =>
