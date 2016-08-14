@@ -28,7 +28,7 @@
             <AutoSuggestBox x:Name="searchBox" Margin="0,8,12,0" Width="270" PlaceholderText="Search" QueryIcon="Find" RelativePanel.LeftOf="commandBar" />
             <CommandBar x:Name="commandBar" RelativePanel.AlignRightWithPanel="True" Margin="0,0,12,0" Background="{x:Null}">
                 <CommandBar.SecondaryCommands>
-                    <AppBarButton Label="Sign out"/>
+                    <AppBarButton Label="Logout" Command="{Binding LogoutCommand}"/>
                 </CommandBar.SecondaryCommands>
             </CommandBar>
         </RelativePanel>

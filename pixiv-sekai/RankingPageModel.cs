@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Data;
@@ -57,5 +58,21 @@ namespace pixiv_sekai
     class RankingPageModel
     {
         public WorksCollection Works { get; } = new WorksCollection();
+
+        public SimpleRelayCommand LogoutCommand { get; }
+
+        public RankingPageModel()
+        {
+            // Create commands
+            LogoutCommand = new SimpleRelayCommand(Logout);
+        }
+
+        private async void Logout(object o)
+        {
+            Task<bool> logoutTask = (App.Current as App).Pixiv.Logout();
+            await logoutTask;
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(LoginPage));
+        }
     }
 }

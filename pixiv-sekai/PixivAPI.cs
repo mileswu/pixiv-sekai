@@ -122,6 +122,14 @@ namespace pixiv_sekai
             return true;
         }
 
+#pragma warning disable 1998
+        async public Task<bool> Logout()
+        {
+            Password = null;
+            return true;
+        }
+#pragma warning restore 1998
+
         async private Task ObtainAccessToken()
         {
             // If no access token or it's expired
