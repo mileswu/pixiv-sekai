@@ -23,6 +23,12 @@ namespace pixiv_sekai
         {
 			// Create commands
             LoginCommand = new SimpleRelayCommand(Login);
+
+            // Auto-login if we can
+            if(Username != null && Password != null)
+            {
+                Login(this);
+            }
         }
 
         private async void Login(object o)
