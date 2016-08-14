@@ -27,7 +27,10 @@ namespace pixiv_sekai
             this.InitializeComponent();
 
             // Fill initial passwordBox with saved password from DataContext/ViewModel
-            passwordBox.Password = ((LoginPageModel)this.DataContext).Password;
+            String pw = ((LoginPageModel)this.DataContext).Password;
+            if (pw != null) {
+                passwordBox.Password = pw;
+            }
         }
 
         // Update DataContext/ViewModel with password from passwordBox
