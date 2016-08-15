@@ -14,8 +14,26 @@ namespace pixiv_sekai
     class LoginPageModel	
     {
         // Properties
-        public string Username { get; set; } = (App.Current as App).Pixiv.Username;
-        public string Password { get; set; } = (App.Current as App).Pixiv.Password;
+        public string _username = (App.Current as App).Pixiv.Username;
+        public string Username
+        {
+            get { return _username; }
+            set
+            {
+                _username = value;
+                LoginCommand.RaiseCanExecuteChanged();
+            }
+        }
+        public string _password = (App.Current as App).Pixiv.Password;
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                _password = value;
+                LoginCommand.RaiseCanExecuteChanged();
+            }
+        }
         public SimpleRelayCommand LoginCommand { get; }
 
 		// Constructor
@@ -23,6 +41,8 @@ namespace pixiv_sekai
         {
 			// Create commands
             LoginCommand = new SimpleRelayCommand(Login);
+            LoginCommand.CanExecuteDelegate = x =>
+                this.Password != null && this.Password != "" && this.Username != null && this.Username != "";
 
             // Auto-login if we can
             if(Username != null && Password != null)

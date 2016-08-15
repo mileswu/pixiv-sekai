@@ -11,6 +11,7 @@ namespace pixiv_sekai
     {
         // Member variables
         private Action<object> ExecutionFunction;
+        public Func<object, bool> CanExecuteDelegate;
 
         public SimpleRelayCommand(Action<object> executionFunction)
         {
@@ -19,7 +20,14 @@ namespace pixiv_sekai
 
         public bool CanExecute(object o)
         {
-            return true;
+            if(CanExecuteDelegate != null)
+            {
+                return CanExecuteDelegate(o);
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public void Execute(object o)
@@ -28,5 +36,9 @@ namespace pixiv_sekai
         }
 
         public event EventHandler CanExecuteChanged;
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged(this, EventArgs.Empty);
+        }
     }
 }
