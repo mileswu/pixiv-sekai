@@ -10,6 +10,11 @@
         <local:RankingPageModel/>
     </Page.DataContext>
 
+    <Page.Resources>
+        <x:String x:Key="GridViewItemMargin">8</x:String>
+        <local:DimensionSubtractMarginConverter x:Key="DimensionSubtractMarginConverter" />
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -39,9 +44,15 @@
                     <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" ItemWidth="150" ItemHeight="150"/>
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="Margin" Value="{StaticResource GridViewItemMargin}" />
+                    <Setter Property="Padding" Value="0" />
+                </Style>
+            </GridView.ItemContainerStyle>
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="5" Width="{Binding ItemsPanelRoot.ItemWidth, ElementName=gridView}" Height="{Binding ItemsPanelRoot.ItemHeight, ElementName=gridView}">
+                    <Grid Width="{Binding ItemsPanelRoot.ItemWidth, ConverterParameter={StaticResource GridViewItemMargin}, Converter={StaticResource DimensionSubtractMarginConverter}, ElementName=gridView}" Height="{Binding ItemsPanelRoot.ItemHeight, ConverterParameter={StaticResource GridViewItemMargin}, Converter={StaticResource DimensionSubtractMarginConverter}, ElementName=gridView}">
                         <Rectangle Fill="{ThemeResource ListViewItemOverlayBackgroundThemeBrush}" />
                         <Image Source="{Binding}" Stretch="UniformToFill"/>
                     </Grid>
