@@ -38,7 +38,7 @@
             </CommandBar>
         </RelativePanel>
 
-        <GridView x:Name="gridView" Margin="0,15,0,0" ItemsSource="{Binding Works}" Grid.Row="1" SizeChanged="GridViewSizeChanged" Padding="15,0,15,0">
+        <GridView x:Name="gridView" Margin="0,15,0,0" ItemsSource="{Binding Works}" Grid.Row="1" SizeChanged="GridViewSizeChanged" Padding="15,0,15,0" SelectionMode="None">
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsWrapGrid Orientation="Horizontal" HorizontalAlignment="Center" ItemWidth="150" ItemHeight="150"/>
