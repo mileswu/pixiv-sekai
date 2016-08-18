@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using System.ComponentModel;
 
 namespace pixiv_sekai
 {
 
 
-    class LoginPageModel	
+    class LoginPageModel : INotifyPropertyChanged
     {
         // Properties
         public string _username = (App.Current as App).Pixiv.Username;
@@ -34,10 +35,27 @@ namespace pixiv_sekai
                 LoginCommand.RaiseCanExecuteChanged();
             }
         }
+        public bool _loginInProgress = false;
+        public bool LoginInProgress
+        {
+            get { return _loginInProgress; }
+            set
+            {
+                _loginInProgress = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("LoginInProgress"));
+                }
+            }
+        }
+
+
         public SimpleRelayCommand LoginCommand { get; }
 
-		// Constructor
-		public LoginPageModel()
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        // Constructor
+        public LoginPageModel()
         {
 			// Create commands
             LoginCommand = new SimpleRelayCommand(Login);
@@ -53,6 +71,7 @@ namespace pixiv_sekai
 
         private async void Login(object o)
         {
+            LoginInProgress = true;
             Task<bool> loginTask = (App.Current as App).Pixiv.Login(Username, Password);
             bool loginSuccessful = await loginTask;
             if (loginSuccessful)
@@ -60,6 +79,7 @@ namespace pixiv_sekai
                 Frame rootFrame = Window.Current.Content as Frame;
                 rootFrame.Navigate(typeof(RankingPage));
             }
+            LoginInProgress = false;
         }
 
     }

@@ -10,6 +10,10 @@
         <local:LoginPageModel/>
     </Page.DataContext>
 
+    <Page.Resources>
+        <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
+
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Height="450">
             <Grid.RowDefinitions>
@@ -24,6 +28,10 @@
                 <PasswordBox x:Name="passwordBox" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" PlaceholderText="Password" PasswordChanged="PasswordChanged" Width="275"/>
                 <Button x:Name="button" Content="Login to pixiv" HorizontalAlignment="Center" Margin="0,12,0,0" VerticalAlignment="Top" Command="{Binding LoginCommand}" Width="275"/>
             </StackPanel>
+            <Grid Grid.Row="2" VerticalAlignment="Bottom" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="120" Visibility="{Binding LoginInProgress, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ProgressRing IsActive="True" Width="50" Height="50" VerticalAlignment="Top"/>
+                <TextBlock x:Name="loadingTextBlock" HorizontalAlignment="Center" Margin="0,0,0,35" TextWrapping="Wrap" Text="Logging in..." VerticalAlignment="Bottom" Grid.Row="1"/>
+            </Grid>
         </Grid>
 
     </Grid>
