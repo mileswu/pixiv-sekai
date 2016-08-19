@@ -151,7 +151,7 @@ namespace pixiv_sekai
             }
         }
 
-        async public Task<List<string> > Rankings(string mode = "daily", int pageNumber = 1)
+        async public Task<List<string> > Rankings(string type = "all", string mode = "daily", int pageNumber = 1)
         {
             // Obtain access token and wait
             await ObtainAccessToken();
@@ -161,7 +161,7 @@ namespace pixiv_sekai
                 throw new Exception("pageNumber has to be <= 10 (500 work limit)");
 
             List<string> results = new List<string>();
-            WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/all?mode=" + mode + "&image_sizes=px_480mw&page=" + Convert.ToString(pageNumber) + "&per_page=50");
+            WebRequest webRequest = WebRequest.Create("https://public-api.secure.pixiv.net/v1/ranking/" + type + "?mode=" + mode + "&image_sizes=px_480mw&page=" + Convert.ToString(pageNumber) + "&per_page=50");
             webRequest.Headers["Authorization"] = "Bearer " + CurrentAccessToken.Token;
 
             string responseBody;

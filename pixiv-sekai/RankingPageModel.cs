@@ -37,6 +37,17 @@ namespace pixiv_sekai
                 Clear();
             }
         }
+        private string _type = "all";
+        public string Type
+        {
+            get { return _type; }
+            set
+            {
+                _type = value;
+                PageNumber = 1;
+                Clear();
+            }
+        }
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
@@ -54,7 +65,7 @@ namespace pixiv_sekai
 
             return new Func<Task<LoadMoreItemsResult>>(async () =>
             {
-                List<string> results = await (App.Current as App).Pixiv.Rankings(Mode, PageNumber);
+                List<string> results = await (App.Current as App).Pixiv.Rankings(Type, Mode, PageNumber);
                 PageNumber += 1;
 
                 foreach (string i in results)

@@ -44,5 +44,12 @@ namespace pixiv_sekai
             var mode = ((TextBlock)modeComboBox.SelectedItem).Text.ToLower();
             ((RankingPageModel)DataContext).Works.Mode = mode;
         }
+
+        private void categoryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var type = (string)((TextBlock)categoryComboBox.SelectedItem).Tag;
+
+            ((RankingPageModel)DataContext).Works.Type = type;
+        }
     }
 }

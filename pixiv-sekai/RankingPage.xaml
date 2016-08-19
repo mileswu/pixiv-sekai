@@ -23,8 +23,10 @@
         
         <RelativePanel x:Name="headerPanel" Background="{ThemeResource ButtonBackgroundThemeBrush}" >
             <ContentPresenter x:Name="pageTitle" Content="Pixiv: Daily Ranking" FontSize="24" FontWeight="Light" IsHitTestVisible="false" TextWrapping="NoWrap" Margin="24,0,0,0" Height="48" VerticalContentAlignment="Center" />
-            <ComboBox x:Name="categoryComboBox" RelativePanel.LeftOf="modeComboBox" SelectedIndex="0" Width="150" Margin="0,8,12,0">
-                <TextBlock Text="Everything"/>
+            <ComboBox x:Name="categoryComboBox" RelativePanel.LeftOf="modeComboBox" SelectedIndex="0" Width="150" Margin="0,8,12,0" SelectionChanged="categoryComboBox_SelectionChanged">
+                <TextBlock Text="Everything" Tag="all"/>
+                <TextBlock Text="Illustrations" Tag="illust"/>
+                <TextBlock Text="Manga" Tag="manga"/>
             </ComboBox>
             <ComboBox x:Name="modeComboBox" RelativePanel.LeftOf="searchBox" SelectedIndex="0" Width="150" Margin="0,8,12,0" SelectionChanged="modeComboBox_SelectionChanged">
                 <TextBlock Text="Daily"/>
