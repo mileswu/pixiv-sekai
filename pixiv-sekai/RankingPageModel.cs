@@ -26,6 +26,18 @@ namespace pixiv_sekai
         }
         private int PageNumber { get; set; } = 1;
 
+        private string _mode = "daily";
+        public string Mode
+        {
+            get { return _mode; }
+            set
+            {
+                _mode = value;
+                PageNumber = 1;
+                Clear();
+            }
+        }
+
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
 #if DEBUG
@@ -42,7 +54,7 @@ namespace pixiv_sekai
 
             return new Func<Task<LoadMoreItemsResult>>(async () =>
             {
-                List<string> results = await (App.Current as App).Pixiv.Rankings(PageNumber);
+                List<string> results = await (App.Current as App).Pixiv.Rankings(Mode, PageNumber);
                 PageNumber += 1;
 
                 foreach (string i in results)

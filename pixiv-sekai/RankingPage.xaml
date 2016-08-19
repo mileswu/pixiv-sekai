@@ -26,9 +26,14 @@
             <ComboBox x:Name="categoryComboBox" RelativePanel.LeftOf="modeComboBox" SelectedIndex="0" Width="150" Margin="0,8,12,0">
                 <TextBlock Text="Everything"/>
             </ComboBox>
-            <ComboBox x:Name="modeComboBox" RelativePanel.LeftOf="searchBox" SelectedIndex="0" Width="150" Margin="0,8,12,0">
+            <ComboBox x:Name="modeComboBox" RelativePanel.LeftOf="searchBox" SelectedIndex="0" Width="150" Margin="0,8,12,0" SelectionChanged="modeComboBox_SelectionChanged">
                 <TextBlock Text="Daily"/>
                 <TextBlock Text="Weekly" />
+                <TextBlock Text="Monthly" />
+                <TextBlock Text="Male" />
+                <TextBlock Text="Female" />
+                <TextBlock Text="Original" />
+                <TextBlock Text="Rookie" />
             </ComboBox>
             <AutoSuggestBox x:Name="searchBox" Margin="0,8,12,0" Width="270" PlaceholderText="Search" QueryIcon="Find" RelativePanel.LeftOf="commandBar" />
             <CommandBar x:Name="commandBar" RelativePanel.AlignRightWithPanel="True" Margin="0,0,12,0" Background="{x:Null}">

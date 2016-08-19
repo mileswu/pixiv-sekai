@@ -38,5 +38,11 @@ namespace pixiv_sekai
             itemsWrapGrid.ItemWidth = width;
             itemsWrapGrid.ItemHeight = width;
         }
+
+        private void modeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var mode = ((TextBlock)modeComboBox.SelectedItem).Text.ToLower();
+            ((RankingPageModel)DataContext).Works.Mode = mode;
+        }
     }
 }
