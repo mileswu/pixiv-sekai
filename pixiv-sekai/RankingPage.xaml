@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page x:Name="page"
     x:Class="pixiv_sekai.RankingPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -20,7 +20,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
         <RelativePanel x:Name="headerPanel" Background="{ThemeResource ButtonBackgroundThemeBrush}" >
             <ContentPresenter x:Name="pageTitle" Content="Pixiv: Daily Ranking" FontSize="24" FontWeight="Light" IsHitTestVisible="false" TextWrapping="NoWrap" Margin="24,0,0,0" Height="48" VerticalContentAlignment="Center" />
             <ComboBox x:Name="categoryComboBox" RelativePanel.LeftOf="modeComboBox" SelectedIndex="0" Width="150" Margin="0,8,12,0" SelectionChanged="categoryComboBox_SelectionChanged">
@@ -28,14 +28,12 @@
                 <TextBlock Text="Illustrations" Tag="illust"/>
                 <TextBlock Text="Manga" Tag="manga"/>
             </ComboBox>
-            <ComboBox x:Name="modeComboBox" RelativePanel.LeftOf="searchBox" SelectedIndex="0" Width="150" Margin="0,8,12,0" SelectionChanged="modeComboBox_SelectionChanged">
-                <TextBlock Text="Daily"/>
-                <TextBlock Text="Weekly" />
-                <TextBlock Text="Monthly" />
-                <TextBlock Text="Male" />
-                <TextBlock Text="Female" />
-                <TextBlock Text="Original" />
-                <TextBlock Text="Rookie" />
+            <ComboBox x:Name="modeComboBox" RelativePanel.LeftOf="searchBox" Width="150" Margin="0,8,12,0" SelectionChanged="modeComboBox_SelectionChanged" ItemsSource="{Binding ModeItems, ElementName=page}" SelectedIndex="{Binding ModeSelectedIndex, ElementName=page, Mode=TwoWay}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
             <AutoSuggestBox x:Name="searchBox" Margin="0,8,12,0" Width="270" PlaceholderText="Search" QueryIcon="Find" RelativePanel.LeftOf="commandBar" />
             <CommandBar x:Name="commandBar" RelativePanel.AlignRightWithPanel="True" Margin="0,0,12,0" Background="{x:Null}">

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -20,10 +22,33 @@ namespace pixiv_sekai
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class RankingPage : Page
+    public sealed partial class RankingPage : Page, INotifyPropertyChanged
     {
+        public ObservableCollection<string> ModeItems { get; } = new ObservableCollection<string>();
+        private int _modeSelectedIndex = 0;
+        public int ModeSelectedIndex
+        {
+            get { return _modeSelectedIndex; }
+            set
+            {
+                _modeSelectedIndex = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ModeSelectedIndex"));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public RankingPage()
         {
+            ModeItems.Add("Daily");
+            ModeItems.Add("Weekly");
+            ModeItems.Add("Monthly");
+            ModeItems.Add("Rookie");
+            AddExtraModes();
+
             this.InitializeComponent();
         }
 
@@ -41,7 +66,7 @@ namespace pixiv_sekai
 
         private void modeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var mode = ((TextBlock)modeComboBox.SelectedItem).Text.ToLower();
+            var mode = ((string)modeComboBox.SelectedItem).ToLower();
             ((RankingPageModel)DataContext).Works.Mode = mode;
         }
 
@@ -49,7 +74,39 @@ namespace pixiv_sekai
         {
             var type = (string)((TextBlock)categoryComboBox.SelectedItem).Tag;
 
+            if(type == "all")
+            {
+                AddExtraModes();
+            }
+            else
+            {
+                RemoveExtraModes();
+            }
+
             ((RankingPageModel)DataContext).Works.Type = type;
+        }
+
+        private void AddExtraModes()
+        {
+            if(ModeItems.Contains("Original") == false)
+                ModeItems.Add("Original");
+            if (ModeItems.Contains("Male") == false)
+                ModeItems.Add("Male");
+            if (ModeItems.Contains("Female") == false)
+                ModeItems.Add("Female");
+        }
+
+        private void RemoveExtraModes()
+        {
+            var sel = (string)modeComboBox.SelectedItem;
+            if(sel == "Original" || sel == "Male" || sel == "Female")
+            {
+                ModeSelectedIndex = 0;
+            }
+
+            ModeItems.Remove("Original");
+            ModeItems.Remove("Male");
+            ModeItems.Remove("Female");
         }
     }
 }
